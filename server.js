@@ -41,8 +41,8 @@ app.engine("handlebars", exphbs({
 app.set("view engine", "handlebars");
 
 // Database configuration with mongoose
-mongoose.connect("mongodb://heroku_f2j0tlfc:Danny9504Tiet@ds241677.mlab.com:41677/heroku_f2j0tlfc");
-//mongoose.connect("mongodb://localhost/newsScraper");
+mongoose.connect("mongodb://heroku_jmv816f9:5j1nd4taq42hi29bfm5hobeujd@ds133192.mlab.com:33192/heroku_jmv816f9");
+//mongoose.connect("mongodb://localhost/mongoscraper");
 var db = mongoose.connection;
 
 // Show any mongoose errors
@@ -81,7 +81,7 @@ app.get("/saved", function(req, res) {
 // A GET request to scrape the echojs website
 app.get("/scrape", function(req, res) {
   // First, we grab the body of the html with request
-  request("https://www.newyorktimes.com/", function(error, response, html) {
+  request("https://www.nytimes.com/", function(error, response, html) {
     // Then, we load that into cheerio and save it to $ for a shorthand selector
     var $ = cheerio.load(html);
     // Now, we grab every h2 within an article tag, and do the following:
@@ -101,7 +101,7 @@ app.get("/scrape", function(req, res) {
 
       result.title = $(this).find("h2").text();
       result.summary = summary;
-      result.link = "https://www.newyorktimes.com" + $(this).find("a").attr("href");
+      result.link = "https://www.nytimes.com" + $(this).find("a").attr("href");
 
       // Using our Article model, create a new entry
       // This effectively passes the result object to the entry (and the title and link)
